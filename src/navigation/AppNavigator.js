@@ -16,18 +16,19 @@ class AppNavigator extends Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home" headerMode="none">
+                <Stack.Navigator initialRouteName="Home">
 
                     <Stack.Screen name="Home" component={HomeScreen}
-                        // options={({ navigation, route }) => ({
-                        //     headerRight: () => (
-                        //         <Button
-                        //             onPress={() => navigation.navigate('CategoryScreen')}
-                        //             title="CategoryScreen"
-                        //             color="black"
-                        //         />
-                        //     )
-                        // })}
+                        options={({ navigation, route }) => ({
+                            headerShown: false,
+                            // headerRight: () => (
+                            //     <Button
+                            //         onPress={() => navigation.navigate('CategoryScreen')}
+                            //         title="CategoryScreen"
+                            //         color="black"
+                            //     />
+                            // )
+                        })}
                     />
                     <Stack.Screen name="Category" component={CategoryScreen} />
                 </Stack.Navigator>

@@ -55,7 +55,10 @@ export default class HomeScreen extends Component {
         this.getDataRestaurant();
     }
 
+
     render() {
+        const { navigation } = this.props
+
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -64,7 +67,7 @@ export default class HomeScreen extends Component {
                     backgroundColor="#FFFFFF"
                     translucent={true} />
 
-                <ScrollView style={{ flex: 1, backgroundColor: '#FFFFFF', marginTop: 25 }}>
+                <ScrollView style={styles.scrollView}>
                     <SliderBox
                         images={this.state.images}
                         // onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
@@ -74,46 +77,47 @@ export default class HomeScreen extends Component {
                         inactiveDotColor="#90A4AE"
                         autoplay
                         circleLoop
-                        ImageComponentStyle={{ width: '97%', borderRadius: 10, marginTop: 5, borderWidth: 1, borderColor: '#FFFFFF' }}
+                        ImageComponentStyle={styles.sliderBox}
                     />
 
-                    <View style={{ marginTop: 15, paddingHorizontal: 10 }}>
+                    <View style={styles.sectiosnsView}>
                         <View style={{ marginBottom: 5 }}>
-                            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Category</Text>
+                            <Text style={styles.sectionText}>Category</Text>
                         </View>
                         <FlatList
                             horizontal
                             data={this.state.dataCategory}
                             renderItem={({ item, key }) => {
                                 return (
-                                    <View key={key} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <Button style={{ backgroundColor: '#F67882', shadowRadius: 8, shadowColor: 'black', borderRadius: 5, marginRight: 17, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ textAlign: 'center', color: '#FFFFFF', marginHorizontal: 10, fontWeight: '900' }}>{item.categories.name}</Text>
+                                    <View key={key} style={styles.categoryFlatListView}>
+                                        <Button style={styles.categoryFlatListButton} onPress={() =>
+                                            navigation.navigate('Category')}>
+                                            <Text style={styles.categoryFlatLisText}>{item.categories.name}</Text>
                                         </Button>
                                     </View>
                                 )
                             }} />
                     </View>
-                    <View style={{ marginTop: 15, paddingHorizontal: 10 }}>
+                    <View style={styles.sectiosnsView}>
                         <View style={{ marginBottom: 5 }}>
-                            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Top Restaurant</Text>
+                            <Text style={styles.sectionText}>Top Restaurant</Text>
                         </View>
                         <FlatList
                             horizontal
                             data={this.state.dataRestaurant}
                             renderItem={({ item, key }) => {
                                 return (
-                                    <Card key={key} style={{ height: 200, width: 200, borderRadius: 15, marginRight: 10, flex: 1 }}>
-                                        <CardItem style={{ flex: 1 }}>
-                                            <Text style={{ fontWeight: 'bold' }}>{item.restaurant.name}</Text>
+                                    <Card key={key} style={styles.flatListCard}>
+                                        <CardItem style={styles.cardItemHeader}>
+                                            <Text style={styles.cardItemTitle}>{item.restaurant.name}</Text>
                                         </CardItem>
-                                        <CardItem cardBody style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Image style={{ height: '100%', width: 200, borderRadius: 5, backgroundColor: 'yellow' }}
+                                        <CardItem cardBody style={styles.cardItemBody}>
+                                            <Image style={styles.cardItemBodyImage}
                                                 source={item.restaurant.thumb ? { uri: item.restaurant.thumb } : null} />
                                         </CardItem>
-                                        <CardItem style={{ flex: 1 }}>
+                                        <CardItem style={styles.cardItemFooter}>
                                             <Left>
-                                                <Icon name='star' style={{ marginRight: 5, fontSize: 22, color: 'red' }} />
+                                                <Icon name='star' style={styles.cardItemFooterLeftIcon} />
                                                 <Text>{item.restaurant.user_rating.aggregate_rating}</Text>
                                             </Left>
                                             <Right>
